@@ -16,25 +16,30 @@ public class TextContainerENG implements TextContainer {
              + "2. Medium (5 chances)\r\n"
              + "3. Hard (3 chances)";
     }
+    
+    @Override
+	public String getLvlInputText() {
+		return "\nEnter your choice: \r\n";
+	}
 
     @Override
     public String getSelectionText(String difficulty) {
-        return "Great! You have selected the " + difficulty + " difficulty level.\r\nLet's start the game!";
+        return "\nGreat! You have selected the " + difficulty + " difficulty level.\r\nLet's start the game!";
     }
 
     @Override
     public String getInputText() {
-        return "Enter your guess: ";
+        return "\nEnter your guess: ";
     }
 
     @Override
     public String getIncorrectResponse(String com, int value) {
-        return "Incorrect! The number is "+com+" than "+value+"";
+        return "\nIncorrect! The number is "+com+" than "+value+"";
     }
 
     @Override
     public String getCorrectResponse(int attempts) {
-        return "Congratulations! You guessed the correct number in "+attempts+" attempts.";
+        return "\nCongratulations! You guessed the correct number in "+attempts+" attempts.";
     }
     
     @Override
@@ -64,8 +69,11 @@ public class TextContainerENG implements TextContainer {
 
 	@Override
 	public String getGameLvlInputError() {
-		return "The level should be between 1 and 3.";
+		return "\nThe level should be between 1 and 3.";
 	}
-    
+	@Override
+	public String getGameComandInputError() {
+		return "\nYou must enter a command or a number.";
+	}
     
 }

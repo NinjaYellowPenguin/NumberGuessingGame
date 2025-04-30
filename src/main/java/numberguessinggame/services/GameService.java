@@ -26,34 +26,76 @@ public class GameService {
 	private void startGame(TextContainer textContainer) {
 		this.textContainer = textContainer;
 		showText(textContainer.getIntroText());
-		String valueS = inputText(textContainer.getInputText());
+		showText(textContainer.getSelectDifficultyText());
+		String valueS = inputText(textContainer.getLvlInputText());
 		
-		Game game = new Game(new Random().nextInt() - 1,
+		Game game = new Game((new Random().nextInt(100) + 1),
 				getMaxRounds(Integer.parseInt(valueS)), 0);
 		startLoop(game);
-		// Empezar Juego
-		// Preguntar hasta maxrounds o acierto
-		// Guardar Resultados del game
 	}
 	
 	private void startLoop(Game game) {
-		
+		boolean loop = true;
+		while(loop) {
+			String comand = inputText(textContainer.getInputText());
+			if(comand.toUpperCase().equals("QUIT")){
+				loop = false;
+				break;
+			}
+			loop = !checkNumber(parseInt(comand), game);
+			loop  = checkRounds(game);
+			// Save scoreLog;
+		}
 	}
 	
-	public void quitGame() {
-		
+	private boolean checkRounds(Game game) {
+		if(game.getRound() >= game.getMaxRounds()) {
+			//TODO: Mensaje de error
+			return false;
+		}
+		return true;
+	}
+	private int parseInt(String number) {
+		try {
+			int num = Integer.parseInt(number);
+			return num;
+		} catch (Exception e) {
+			throw new GameRuntimeException(textContainer.getGameComandInputError());
+		}
+	}
+	
+	private boolean checkNumber(int input, Game game) {
+		if(input == game.getRandomNumber()) {
+			showText(textContainer.getCorrectResponse(game.getRound()));
+			return true;
+		}else if(input < game.getRandomNumber()){
+			String com = textContainer.getLessText();
+			showText(textContainer.getIncorrectResponse(com, input));
+			return false;
+		}else {
+			String com = textContainer.getGreaterText();
+			showText(textContainer.getIncorrectResponse(com, input));
+			return false;
+		}
 	}
 	
 	private int getMaxRounds(int lvl) {
+		String diff = "";
+		int maxRounds = 0;
 		if(lvl == 1) {
-			return 10;
+			diff = textContainer.getEasyText();
+			maxRounds = 10;
 		}else if(lvl == 2) {
-			return 5;
+			diff = textContainer.getMediumText();
+			maxRounds = 5;
 		}else if(lvl == 3) {
-			return 3;
+			diff = textContainer.getHardText();
+			maxRounds = 3;
 		}else {
 			throw new GameRuntimeException(textContainer.getGameLvlInputError());
 		}
+		showText(textContainer.getSelectionText(diff));
+		return maxRounds;
 	}
 	
 	
@@ -69,6 +111,8 @@ public class GameService {
 }
 
 class GameRuntimeException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
 
 	public GameRuntimeException(String message) {
         super(message);

@@ -3,6 +3,7 @@ package numberguessinggame.text;
 public interface TextContainer {
     String getIntroText();
     String getSelectDifficultyText();
+    String getLvlInputText();
     String getSelectionText(String difficulty);
     String getInputText();
     String getIncorrectResponse(String com, int value);
@@ -16,4 +17,5 @@ public interface TextContainer {
     String getGreaterText();
     
     String getGameLvlInputError();
+    String getGameComandInputError();
 }

@@ -16,6 +16,11 @@ public class TextContainerESP implements TextContainer {
              + "2. Medio (5 intentos)\r\n"
              + "3. Difícil (3 intentos)";
     }
+    
+    @Override
+	public String getLvlInputText() {
+		return "Que nivel prefieres? (El 1 es de cobardes): ";
+	}
 
     @Override
     public String getSelectionText(String difficulty) {
@@ -65,6 +70,11 @@ public class TextContainerESP implements TextContainer {
 	@Override
 	public String getGameLvlInputError() {
 		return "El nivel debe estar entre 1 y 3.";
+	}
+
+	@Override
+	public String getGameComandInputError() {
+		return "Debes poner un comando o un número.";
 	}
 }
 
