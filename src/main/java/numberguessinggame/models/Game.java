@@ -3,6 +3,7 @@ package numberguessinggame.models;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Game {
 	
 	private int randomNumber;
@@ -24,6 +25,10 @@ public class Game {
 
 	public int getRound() {
 		return round;
+	}
+	
+	public void newRound() {
+		round++;
 	}
 
 	public int getMaxRounds() {

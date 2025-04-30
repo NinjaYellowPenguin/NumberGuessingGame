@@ -19,6 +19,7 @@ public class GameService {
 	public void startGame(String languaje) {
 		if(languaje.toUpperCase().equals("ESP") || languaje.toUpperCase().equals("ESPAÑOL") || languaje.toUpperCase().equals("SPANISH")) {
 			textContainer = new TextContainerESP();
+			startGame(textContainer);
 		}else {
 			startGame();
 		}				
@@ -37,23 +38,27 @@ public class GameService {
 	private void startLoop(Game game) {
 		boolean loop = true;
 		while(loop) {
+			game.newRound();
+			
 			String comand = inputText(textContainer.getInputText());
-			if(comand.toUpperCase().equals("QUIT")){
-				loop = false;
-				break;
-			}
-			loop = !checkNumber(parseInt(comand), game);
-			loop  = checkRounds(game);
+			
+			if(comand.toUpperCase().equals("QUIT")) break;		 
+			if(checkNumber(parseInt(comand), game)) break;
+			if(checkRounds(game)) break;
 			// Save scoreLog;
+		}
+		
+		if(inputText(textContainer.getPlayAgainText()).equals("y")) {
+			startGame(textContainer);
 		}
 	}
 	
 	private boolean checkRounds(Game game) {
 		if(game.getRound() >= game.getMaxRounds()) {
-			//TODO: Mensaje de error
-			return false;
+			showText(textContainer.gameOverText());
+			return true;
 		}
-		return true;
+		return false;
 	}
 	private int parseInt(String number) {
 		try {
@@ -68,7 +73,7 @@ public class GameService {
 		if(input == game.getRandomNumber()) {
 			showText(textContainer.getCorrectResponse(game.getRound()));
 			return true;
-		}else if(input < game.getRandomNumber()){
+		}else if(input > game.getRandomNumber()){
 			String com = textContainer.getLessText();
 			showText(textContainer.getIncorrectResponse(com, input));
 			return false;
@@ -107,6 +112,7 @@ public class GameService {
 	
 	private void showText(String text) {
 		System.out.println(text);
+		System.out.println("");
 	}
 }
 

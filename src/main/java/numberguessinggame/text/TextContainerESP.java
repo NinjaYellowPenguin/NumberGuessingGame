@@ -6,7 +6,7 @@ public class TextContainerESP implements TextContainer {
     public String getIntroText() {
         return "¡Bienvenido al Juego de Adivinar el Número!\r\n"
              + "Estoy pensando en un número entre 1 y 100.\r\n"
-             + "Tienes 5 intentos para adivinar el número correcto.\r\n\n";
+             + "Tienes 5 intentos para adivinar el número correcto.\r";
     }
 
     @Override
@@ -75,6 +75,20 @@ public class TextContainerESP implements TextContainer {
 	@Override
 	public String getGameComandInputError() {
 		return "Debes poner un comando o un número.";
+	}
+
+	@Override
+	public String gameOverText() {
+		return "Parece que los pingüinos no están de tu lado.";
+	}
+
+	@Override
+	public String getPlayAgainText() {
+		return "   _                                                    _           \r\n"
+				+ " ('v')         ¿Quieres volver a jugar? (y/n)         ('v')\r\n"
+				+ "//-=-\\\\                                              //-=-\\\\        \r\n"
+				+ "(\\_=_/)                                              (\\_=_/)        \r\n"
+				+ " ^^ ^^                                                ^^ ^^   ";
 	}
 }
 

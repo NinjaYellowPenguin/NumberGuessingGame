@@ -16,6 +16,9 @@ public interface TextContainer {
     String getLessText();
     String getGreaterText();
     
+    String gameOverText();
+    
     String getGameLvlInputError();
     String getGameComandInputError();
+    String getPlayAgainText();
 }
